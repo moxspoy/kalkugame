@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KalkuGame for Kids - Moxspoy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="icon" href="https://www.pngarts.com/files/1/Game-PNG-Image-1.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+    h2 {
+        font-size: 70px;
+    }
+
+    .title, #totalCorrect, #level {
+        color: chartreuse;
+    }
+
+    .title {
+        font-size: 70px;
+    }
+
+    .subtitle {
+        color: yellowgreen;
+    }
+
+    .totalCorrect, .levelClass {
+        font-size: 30px;
+    }
+
+    p, h2 {
+        color: aliceblue;
+    }
+
+    body, html {
+    height: 100%;
+    margin: 0;
+    }
+
+    .bg {
+        background-image: linear-gradient(to left top,#e96443, #904e95);
+    }
+
+    .userAnswer {
+        width: 30%;
+    }
+    </style>
+  </head>
+  <body onload="executeGame(0)" class="bg is-widescreen">
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        KalkuGame
+      </h1>
+      <p class="subtitle">
+        Solving basic math games.
+      </p>
+      <h2><span id="firstNumber">0</span><span id="operator">*</span><span id="lastNumber">0</span><span>=</span></h2>
+      <br>
+      <input class="input is-medium is-rounded userAnswer" type="number" name="userAnswer" onchange="executeGame(this.value)" autofocus >
+      <br>
+      <br>
+      <p class="totalCorrect">Total of Correct Answer is <span id="totalCorrect">0</span></p>
+      <p class="levelClass">Your level is <span id="level">0</span></p>
+      <button type="button" class="button is-link is-rounded" onclick="resetGame()">Reset</button>
+    </div>
+  </section>
+  
+  <script>
+      let firstNumber = document.getElementById("firstNumber");
+      let lastNumber = document.getElementById("lastNumber");
+      let operator = document.getElementById("operator");
+      let totalCorrect = document.getElementById("totalCorrect");
+      let level = document.getElementById("level");
+
+      let numberOfCorrect = 0;
+      let operatorArray = ["*", "+", "-", "/"];
+
+      let copyResult = 0;
+      let getResult = 0;
+
+      let levelValue = 0;
+      let numberOfError = 0;
+
+      let maxFirstNumber = 20;
+      let maxLastNumber = 10;
+
+      function executeGame(userAnswer) {
+          copyResult = getResult;
+          let getFirstNumber = mathFloor(maxFirstNumber);
+          firstNumber.innerHTML = getFirstNumber;
+          let getLastNumber = mathFloor(maxLastNumber);
+          lastNumber.innerHTML = getLastNumber;
+
+          let getOperator = operator.innerHTML = operatorArray[mathFloor(operatorArray.length-1)];
+
+          switch(getOperator) {
+            case "+":
+                getResult = getFirstNumber + getLastNumber;
+                break;
+            case "-":
+                getResult = getFirstNumber - getLastNumber;
+                break;
+            case "*":
+                getResult = getFirstNumber * getLastNumber;
+                break;
+            case "/":
+                getResult = getFirstNumber / getLastNumber;
+                break;
+          }
+
+          if (copyResult == userAnswer) {
+              numberOfCorrect ++;
+          } else {
+              numberOfError --;
+          }
+
+
+          if ( ((numberOfCorrect)%5) == 0) {
+            levelValue++;
+            Swal(
+                'Good job!',
+                'Your level is up!',
+                'success'
+                );
+
+            maxFirstNumber = maxFirstNumber + 21;
+            maxLastNumber = maxLastNumber + 5;
+                
+          }
+
+        
+
+          totalCorrect.innerHTML = numberOfCorrect - 1;
+          level.innerHTML = levelValue;
+
+          if (levelValue == 10) {
+              Swal(
+                  'You are rock excellent people',
+                  'You deserve to get an appreciation!',
+                  'success'
+              )
+          }
+      }
+
+      function mathFloor (maxNumber) {
+          return Math.floor(Math.random() * Math.floor(maxNumber));
+      }
+
+      function resetGame() {
+        numberOfCorrect = 0;
+
+        copyResult = 0;
+        getResult = 0;
+
+        levelValue = 0;
+        numberOfError = 0;
+
+        executeGame(0);
+      }
+
+  </script>
+  </body>
+</html>
