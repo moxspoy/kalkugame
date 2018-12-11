@@ -8,6 +8,7 @@
     <link rel="icon" href="https://www.pngarts.com/files/1/Game-PNG-Image-1.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
     <style>
     h2 {
         font-size: 70px;
@@ -18,7 +19,7 @@
     }
 
     .title {
-        font-size: 70px;
+        font-size: 60px;
     }
 
     .subtitle {
@@ -45,13 +46,20 @@
     .userAnswer {
         width: 30%;
     }
+
+    #credit {
+        color: navy;
+    }
+
+    
     </style>
   </head>
   <body onload="executeGame(0)" class="bg is-widescreen">
   <section class="section">
     <div class="container">
+
       <h1 class="title">
-        KalkuGame
+        KalkuGame<span id="credit">Mox</span>
       </h1>
       <p class="subtitle">
         Solving basic math games.
@@ -64,7 +72,9 @@
       <p class="totalCorrect">Total of Correct Answer is <span id="totalCorrect">0</span></p>
       <p class="levelClass">Your level is <span id="level">0</span></p>
       <button type="button" class="button is-link is-rounded" onclick="resetGame()">Reset</button>
+
     </div>
+    
   </section>
   
   <script>
